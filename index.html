@@ -3,134 +3,514 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Space Website</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous" />
+    <title>Cosmos | Explore The Universe</title>
+    <!-- Bootstrap 5.3 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
+        :root {
+            --primary: #6D83F2;
+            --primary-dark: #4A5FD2;
+            --secondary: #A3BBFF;
+            --dark: #0F1123;
+            --light: #F8F9FE;
+            --gray: #666B8F;
+            --gradient: linear-gradient(135deg, #6D83F2 0%, #6159CE 100%);
+        }
+
         body {
-            background-color: #17252a;
-            color: #dbe2ef;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin-top: 60px; /* Adjusted margin-top to accommodate the fixed-top navbar */
+            background-color: var(--dark);
+            color: var(--light);
+            font-family: 'Space Grotesk', sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            position: relative;
         }
 
-        #mainnav {
-            background-color: #0b0c10;
-            font-size: 1.5rem;
-            font-weight: 300;
-            border-bottom: 2px solid #45a29e;
+        .navbar {
+            background-color: rgba(15, 17, 35, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            padding: 1rem 0;
+            transition: all 0.3s ease;
         }
 
-        #mainnav .navbar-brand {
-            color: #45a29e;
+        .navbar-brand {
             font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 2px;
+        }
+
+        .navbar-brand:hover {
+            color: var(--secondary);
+        }
+
+        .nav-link {
+            color: var(--light);
             font-weight: 500;
+            position: relative;
+            margin: 0 0.8rem;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
         }
 
-        #mainnav .nav-link {
-            color: #bbe1fa;
-            transition: color 0.3s ease-in-out;
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient);
+            transition: width 0.3s ease;
         }
 
-        #mainnav .nav-link:hover {
-            color: #ffffff;
+        .nav-link:hover {
+            color: var(--primary);
         }
 
-        section {
-            padding: 80px 0;
-            background-color: #394240;
+        .nav-link:hover::after {
+            width: 100%;
         }
 
-        h1.display-4 {
-            color: #45a29e;
+        .section-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
         }
 
-        p.lead {
-            color: #bbe1fa;
+        .section-subtitle {
+            color: var(--gray);
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        .planet-section {
+            padding: 150px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .planet-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(109, 131, 242, 0.1), transparent 70%);
+            z-index: -1;
+        }
+
+        .planet-section:nth-child(even) {
+            background-color: rgba(15, 17, 35, 0.95);
+        }
+
+        .planet-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .planet-img {
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+
+        .planet-img:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 30px 50px rgba(109, 131, 242, 0.3);
+        }
+
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .planet-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            border-radius: 10px;
+            flex: 1;
+            min-width: 120px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .stat-value {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .lead {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--light);
+            margin-bottom: 2rem;
+        }
+
+        .bg-stars {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 800 800'%3E%3Cg fill='none' stroke='%23404' stroke-width='1'%3E%3Cpath d='M769 229L1037 260.9M927 880L731 737 520 660 309 538 40 599 295 764 126.5 879.5 40 599-197 493 102 382-31 229 126.5 79.5-69-63'/%3E%3Cpath d='M-31 229L237 261 390 382 603 493 308.5 537.5 101.5 381.5M370 905L295 764'/%3E%3Cpath d='M520 660L578 842 731 737 840 599 603 493 520 660 295 764 309 538 390 382 539 269 769 229 577.5 41.5 370 105 295 -36 126.5 79.5 237 261 102 382 40 599 -69 737 127 880'/%3E%3Cpath d='M520-140L578.5 42.5 731-63M603 493L539 269 237 261 370 105M902 382L539 269M390 382L102 382'/%3E%3Cpath d='M-222 42L126.5 79.5 370 105 539 269 577.5 41.5 927 80 769 229 902 382 603 493 731 737M295-36L577.5 41.5M578 842L295 764M40-201L127 80M102 382L-261 269'/%3E%3C/g%3E%3Cg fill='%23505'%3E%3Ccircle cx='769' cy='229' r='5'/%3E%3Ccircle cx='539' cy='269' r='5'/%3E%3Ccircle cx='603' cy='493' r='5'/%3E%3Ccircle cx='731' cy='737' r='5'/%3E%3Ccircle cx='520' cy='660' r='5'/%3E%3Ccircle cx='309' cy='538' r='5'/%3E%3Ccircle cx='295' cy='764' r='5'/%3E%3Ccircle cx='40' cy='599' r='5'/%3E%3Ccircle cx='102' cy='382' r='5'/%3E%3Ccircle cx='127' cy='80' r='5'/%3E%3Ccircle cx='370' cy='105' r='5'/%3E%3Ccircle cx='578' cy='42' r='5'/%3E%3Ccircle cx='237' cy='261' r='5'/%3E%3Ccircle cx='390' cy='382' r='5'/%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .btn-explore {
+            background: var(--gradient);
+            border: none;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(109, 131, 242, 0.4);
+        }
+
+        .btn-explore:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(109, 131, 242, 0.6);
+        }
+
+        .bg-glow {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(109, 131, 242, 0.3) 0%, rgba(109, 131, 242, 0) 70%);
+            filter: blur(30px);
+            z-index: 0;
+        }
+
+        @media (max-width: 768px) {
+            .planet-section {
+                padding: 100px 0;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+            
+            .planet-img {
+                margin-top: 2rem;
+            }
         }
     </style>
 </head>
-<body>
-    <div class="container">
-        <nav id="mainnav" class="navbar navbar-dark navbar-expand-md fixed-top">
-            <a href="#" class="navbar-brand">SPACE</a>
-            <button class="navbar-toggler" data-toggle="collapse" data-target="#navLinks" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+<body class="bg-stars">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">COSMOS</a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars text-light"></i>
             </button>
-            <div class="collapse navbar-collapse" id="navLinks">
-                <ul class="navbar-nav">
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a href="#EARTH" class="nav-link">EARTH</a>
+                        <a class="nav-link" href="#earth">EARTH</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#MOON" class="nav-link">MOON</a>
+                        <a class="nav-link" href="#moon">MOON</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#JUPITER" class="nav-link">JUPITER</a>
+                        <a class="nav-link" href="#jupiter">JUPITER</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#explore">EXPLORE</a>
                     </li>
                 </ul>
             </div>
-        </nav>
-    </div>
-
-    <section class="container-fluid px-0" id="EARTH">
-        <div class="row align-items-center">
-            <div class="col-lg-6">
-                <div class="d-none d-lg-block mt-4" id="earth">
-                    <div class="display-4 text-center">planet earth</div>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <img class="img-fluid" src="media/earth.jpg" alt="earth" />
-            </div>
         </div>
-    </section>
+    </nav>
 
-    <section class="container-fluid px-0" id="MOON">
-        <div class="row align-items-center">
-            <div class="col-lg-6 order-1 order-lg-0">
-                <img class="img-fluid" src="media/moon.jpg" alt="moon" />
-            </div>
-            <div class="col-lg-6 order-0 order-lg-1">
-                <div class="row align-items-center justify-content-center">
-                    <div class="col-8">
-                        <div class="display-4 text-center">MOON</div>
-                        <p class="lead">
-                            The Moon is Earth's only natural satellite and the fifth largest
-                            moon in the solar system. The Moon's presence helps stabilize
-                            our planet's wobble and moderate our climate. The Moon's
-                            distance from Earth is about 240,000 miles (385,000km). The Moon
-                            has a very thin atmosphere called an exosphere.
-                        </p>
+    <!-- Hero Section -->
+    <section class="planet-section d-flex align-items-center" id="home">
+        <div class="bg-glow" style="top: 20%; left: 10%;"></div>
+        <div class="bg-glow" style="bottom: 10%; right: 15%;"></div>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="planet-content text-center text-lg-start">
+                        <h1 class="display-3 fw-bold mb-4">Discover the Wonders of Our <span style="background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Universe</span></h1>
+                        <p class="lead mb-5">Embark on a journey through space and time as we explore the celestial bodies that make up our solar system.</p>
+                        <a href="#earth" class="btn btn-explore me-3">Begin Journey <i class="fas fa-rocket ms-2"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="text-center">
+                        <img src="/api/placeholder/600/600" alt="Solar System" class="img-fluid floating" style="border-radius: 50%; max-width: 400px; margin: 0 auto;">
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="container-fluid px-0" id="JUPITER">
-        <div class="row align-items-center">
-            <div class="col-lg-6">
-                <div class="row align-items-center justify-content-center">
-                    <div class="col-8">
-                        <div class="display-4 text-center">JUPITER</div>
+    <!-- Earth Section -->
+    <section class="planet-section" id="earth">
+        <div class="bg-glow" style="top: 30%; right: 20%;"></div>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="planet-content text-center text-lg-start">
+                        <h2 class="section-title">EARTH</h2>
+                        <p class="section-subtitle">Our home planet is the only place we know of so far that's inhabited by living things.</p>
                         <p class="lead">
-                            Jupiter is the fifth planet from the Sun and the largest in the
-                            Solar System. It is a gas giant with a mass more than two and a
-                            half times that of all the other planets in the Solar System
-                            combined, but slightly less than one-thousandth the mass of the
-                            Sun.
+                            Earth is the third planet from the Sun and the only astronomical object known to harbor life. About 29.2% of Earth's surface is land, with the remaining 70.8% covered with water. Earth's atmosphere consists mainly of nitrogen and oxygen.
                         </p>
+                        <div class="planet-stats">
+                            <div class="stat-card">
+                                <div class="stat-value">149.6M</div>
+                                <div class="stat-label">KM FROM SUN</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">365.25</div>
+                                <div class="stat-label">DAYS PER ORBIT</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">1</div>
+                                <div class="stat-label">MOON</div>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <a href="#moon" class="btn btn-explore mt-3">Explore Next <i class="fas fa-arrow-right ms-2"></i></a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-6">
-                <img class="img-fluid" src="media/jubiter.jpg" alt="Jupiter" />
+                <div class="col-lg-6">
+                    <div class="text-center mt-5 mt-lg-0">
+                        <img src="/api/placeholder/800/800" alt="Earth" class="img-fluid planet-img floating">
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.2.0-beta1/js/bootstrap.min.js" integrity="sha384-rt6A4YM9XyqAUp6AdQIA8/zF5I9SIIM65z6OqwnpxNxsR9Q6cKJcyhJ8bsNUz8fl" crossorigin="anonymous"></script>
+    <!-- Moon Section -->
+    <section class="planet-section" id="moon">
+        <div class="bg-glow" style="bottom: 20%; left: 15%;"></div>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 order-2 order-lg-1">
+                    <div class="text-center mt-5 mt-lg-0">
+                        <img src="/api/placeholder/800/800" alt="Moon" class="img-fluid planet-img floating">
+                    </div>
+                </div>
+                <div class="col-lg-6 order-1 order-lg-2">
+                    <div class="planet-content text-center text-lg-start">
+                        <h2 class="section-title">MOON</h2>
+                        <p class="section-subtitle">Earth's only natural satellite and the fifth largest moon in the solar system.</p>
+                        <p class="lead">
+                            The Moon is Earth's only natural satellite and the fifth largest moon in the solar system. The Moon's presence helps stabilize our planet's wobble and moderate our climate. The Moon's distance from Earth is about 240,000 miles (385,000km). The Moon has a very thin atmosphere called an exosphere.
+                        </p>
+                        <div class="planet-stats">
+                            <div class="stat-card">
+                                <div class="stat-value">384,400</div>
+                                <div class="stat-label">KM FROM EARTH</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">27.3</div>
+                                <div class="stat-label">DAYS PER ORBIT</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">-173°C</div>
+                                <div class="stat-label">MIN TEMPERATURE</div>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <a href="#jupiter" class="btn btn-explore mt-3">Explore Next <i class="fas fa-arrow-right ms-2"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Jupiter Section -->
+    <section class="planet-section" id="jupiter">
+        <div class="bg-glow" style="top: 40%; right: 10%;"></div>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="planet-content text-center text-lg-start">
+                        <h2 class="section-title">JUPITER</h2>
+                        <p class="section-subtitle">The fifth planet from the Sun and the largest in the Solar System.</p>
+                        <p class="lead">
+                            Jupiter is the fifth planet from the Sun and the largest in the Solar System. It is a gas giant with a mass more than two and a half times that of all the other planets in the Solar System combined, but slightly less than one-thousandth the mass of the Sun.
+                        </p>
+                        <div class="planet-stats">
+                            <div class="stat-card">
+                                <div class="stat-value">778.5M</div>
+                                <div class="stat-label">KM FROM SUN</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">11.86</div>
+                                <div class="stat-label">EARTH YEARS</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">79+</div>
+                                <div class="stat-label">MOONS</div>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <a href="#explore" class="btn btn-explore mt-3">Explore Next <i class="fas fa-arrow-right ms-2"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="text-center mt-5 mt-lg-0">
+                        <img src="/api/placeholder/800/800" alt="Jupiter" class="img-fluid planet-img floating">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Explore Section -->
+    <section class="planet-section" id="explore">
+        <div class="bg-glow" style="bottom: 30%; left: 20%;"></div>
+        <div class="container text-center">
+            <h2 class="section-title mb-5">Continue Your Journey</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100 bg-transparent border-0">
+                        <div class="card-body p-4" style="background: rgba(255, 255, 255, 0.05); border-radius: 20px; backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1);">
+                            <div class="text-center mb-4">
+                                <i class="fas fa-satellite text-primary fa-3x mb-3"></i>
+                                <h3 class="h4 fw-bold">Solar System</h3>
+                            </div>
+                            <p>Explore the planets, moons, asteroids, and comets that orbit our Sun.</p>
+                            <a href="#" class="btn btn-outline-light mt-3">Discover</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 bg-transparent border-0">
+                        <div class="card-body p-4" style="background: rgba(255, 255, 255, 0.05); border-radius: 20px; backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1);">
+                            <div class="text-center mb-4">
+                                <i class="fas fa-star text-primary fa-3x mb-3"></i>
+                                <h3 class="h4 fw-bold">Stars & Galaxies</h3>
+                            </div>
+                            <p>Venture beyond our solar system to discover stars, nebulae, and distant galaxies.</p>
+                            <a href="#" class="btn btn-outline-light mt-3">Discover</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 bg-transparent border-0">
+                        <div class="card-body p-4" style="background: rgba(255, 255, 255, 0.05); border-radius: 20px; backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1);">
+                            <div class="text-center mb-4">
+                                <i class="fas fa-user-astronaut text-primary fa-3x mb-3"></i>
+                                <h3 class="h4 fw-bold">Space Missions</h3>
+                            </div>
+                            <p>Learn about past, present, and future missions that expand our knowledge of space.</p>
+                            <a href="#" class="btn btn-outline-light mt-3">Discover</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-5" style="background-color: rgba(15, 17, 35, 0.98);">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-4 text-center text-md-start mb-4 mb-md-0">
+                    <h3 class="navbar-brand mb-0">COSMOS</h3>
+                    <p class="text-muted mb-0">Explore the universe</p>
+                </div>
+                <div class="col-md-4 text-center mb-4 mb-md-0">
+                    <div class="d-flex justify-content-center gap-3">
+                        <a href="#" class="text-decoration-none">
+                            <i class="fab fa-facebook-f" style="color: var(--gray); font-size: 1.2rem;"></i>
+                        </a>
+                        <a href="#" class="text-decoration-none">
+                            <i class="fab fa-twitter" style="color: var(--gray); font-size: 1.2rem;"></i>
+                        </a>
+                        <a href="#" class="text-decoration-none">
+                            <i class="fab fa-instagram" style="color: var(--gray); font-size: 1.2rem;"></i>
+                        </a>
+                        <a href="#" class="text-decoration-none">
+                            <i class="fab fa-youtube" style="color: var(--gray); font-size: 1.2rem;"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-4 text-center text-md-end">
+                    <p class="text-muted mb-0">© 2025 Cosmos. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5.3 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    
+    <!-- Custom Script -->
+    <script>
+        // Navbar background change on scroll
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.padding = '0.5rem 0';
+                navbar.style.backgroundColor = 'rgba(15, 17, 35, 0.98)';
+            } else {
+                navbar.style.padding = '1rem 0';
+                navbar.style.backgroundColor = 'rgba(15, 17, 35, 0.95)';
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
